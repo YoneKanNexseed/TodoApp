@@ -35,11 +35,19 @@ class Todo: Object {
         // この中でシートに書き込みを行う
         try! realm.write {
             let todo = Todo()
+
+            // 最大IDを取得する。何もデータが無かったら0を設定する
+            let maxId = (realm.objects(Todo.self).max(ofProperty: "id") as Int? ?? 0)
+            
+            // 現在の日付を取得する
             let now = Date()
             
-            todo.id = 1
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy/MM/dd"
+            
+            todo.id = maxId + 1
             todo.title = title
-            todo.date = "2019/03/13"
+            todo.date = formatter.string(from: now)
             
             realm.add(todo)
         }
@@ -60,5 +68,26 @@ class Todo: Object {
         return todos
     }
     
+    
+    // 編集する関数
+    func update(todo: Todo, newTitle: String) {
+        let realm = try! Realm()
+        
+        // 編集対象のTodoを取得する
+        let targetTodo = findById(id: todo.id)
+        
+        try! realm.write {
+            targetTodo.title = newTitle
+        }
+    }
+    
+    // IDを指定してTodoを取得する
+    func findById(id: Int) -> Todo {
+        let realm = try! Realm()
+        
+        // Todoの一覧からIDが一致するTodoを取得する
+        let todo = realm.objects(Todo.self).filter("id = \(id)").first
+        return todo!
+    }
     
 }

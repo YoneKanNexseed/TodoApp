@@ -44,7 +44,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="追加"/>
                                 <connections>
-                                    <segue destination="wHs-V5-52H" kind="show" id="oIL-I6-rim"/>
+                                    <segue destination="wHs-V5-52H" kind="show" identifier="toAddVC" id="oIL-I6-rim"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -85,6 +85,7 @@
                         <viewLayoutGuide key="safeArea" id="GmU-vw-KXb"/>
                     </view>
                     <connections>
+                        <outlet property="button" destination="LWm-Ff-P7d" id="hNk-27-r1o"/>
                         <outlet property="textField" destination="SOA-cU-pVR" id="h7V-Av-Src"/>
                     </connections>
                 </viewController>
@@ -95,7 +96,6 @@
         <!--Navigation Controller-->
         <scene sceneID="Sg1-AO-ND7">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ajR-7n-G36" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9nR-tX-ph6" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hBt-kZ-eVp">
@@ -107,6 +107,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Tht-vD-wVF"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ajR-7n-G36" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="164" y="-564.46776611694156"/>
         </scene>

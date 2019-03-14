@@ -45,6 +45,33 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return cell
     }
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // withIdentifier: 矢印の名前
+        // sender: 次の画面に渡したい値
+        
+        let todo = todos[indexPath.row]
+        performSegue(withIdentifier: "toAddVC", sender: todo)
+    }
+    
+    // 画面遷移する時に呼ばれる
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "toAddVC" {
+            // 矢印の名前がtoAddVCの場合
+            // 次の画面に選択されたTODOを設定する
+            let addVC = segue.destination as! AddViewController
+            addVC.todo = sender as? Todo
+        }
+        
+    }
+    
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            todos.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }
 
