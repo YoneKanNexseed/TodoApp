@@ -90,4 +90,17 @@ class Todo: Object {
         return todo!
     }
     
+    
+    func delete(id: Int) {
+        let realm = try! Realm()
+        
+        // 削除するTODOを取得
+        let todo = realm.objects(Todo.self).filter("id = \(id)").first
+        
+        try! realm.write {
+            // 削除実行
+            realm.delete(todo!)
+        }
+        
+    }
 }

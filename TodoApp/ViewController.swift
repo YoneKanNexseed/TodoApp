@@ -66,10 +66,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
-    
+    // 左にスワイプされた削除ボタン等が表示される時に実行される
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+
+            // Realmからも削除する
+            let deleteTarget = todos[indexPath.row]
+
+            let todo = Todo()
+            todo.delete(id: deleteTarget.id)
+            
+            
+            // 配列の中から選択されたTODOを削除
             todos.remove(at: indexPath.row)
+            
+            // 画面に表示されているテーブルから1行削除する
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
